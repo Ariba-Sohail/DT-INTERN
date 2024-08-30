@@ -1,0 +1,86 @@
+import math
+import random
+import sympy as sp
+
+def roll_dice():
+    return random.randint(1, 6)
+
+def play_dice_game():
+    print("\nWelcome to the Dice Game!")
+    print("Roll the dice to earn calculation chances.")
+    input("Press Enter to roll the dice...")
+    result = roll_dice()
+    print(f"You rolled a {result}!")
+    return result
+
+def basic_calculator(operation, num1, num2):
+    if operation == '+':
+        return num1 + num2
+    elif operation == '-':
+        return num1 - num2
+    elif operation == '*':
+        return num1 * num2
+    elif operation == '/':
+        return num1 / num2
+    elif operation == '^':
+        return num1 ** num2
+    else:
+        return "Invalid operation"
+
+def derivative_calculator():
+    x = sp.Symbol('x')
+    equation = input("Enter the equation in terms of x: ")
+    try:
+        expr = sp.sympify(equation)
+        derivative = sp.diff(expr, x)
+        print(f"The derivative of {equation} is: {derivative}")
+    except:
+        print("Invalid input. Please enter a valid equation.")
+
+def integral_calculator():
+    x = sp.Symbol('x')
+    equation = input("Enter the equation in terms of x: ")
+    try:
+        expr = sp.sympify(equation)
+        integral = sp.integrate(expr, x)
+        print(f"The integral of {equation} is: {integral}")
+    except:
+        print("Invalid input. Please enter a valid equation.")
+
+def main():
+    chances = play_dice_game()
+    print(f"You have {chances} calculation chances.")
+
+    while chances > 0:
+        print("\nChoose an operation:")
+        print("1. Basic Calculation")
+        print("2. Derivative")
+        print("3. Integral")
+        choice = input("Enter your choice (1/2/3): ")
+
+        if choice == '1':
+            num1 = float(input("Enter first number: "))
+            operation = input("Enter operation (+, -, *, /, ^): ")
+            num2 = float(input("Enter second number: "))
+            result = basic_calculator(operation, num1, num2)
+            print(f"Result: {result}")
+        elif choice == '2':
+            derivative_calculator()
+        elif choice == '3':
+            integral_calculator()
+        else:
+            print("Invalid choice. Please try again.")
+            continue
+
+        chances -= 1
+        print(f"You have {chances} calculation chances left.")
+
+        if chances > 0:
+            continue_calc = input("Do you want to calculate more? (yes/no): ").lower()
+            if continue_calc != 'yes':
+                break
+
+    print("Thank you for using the Advanced Calculator!")
+
+if __name__ == "__main__":
+    main()
