@@ -1,0 +1,134 @@
+#PART 1: 'Functionality and Data Structures'
+
+# Define a function to return sample student data
+def get_student_data():
+    """
+    Returns a dictionary containing sample student data.
+
+    Returns:
+        dict: A dictionary with student names as keys and their data as values.
+    """
+    student_data = {
+        "John": {"age": 20, "grades": [90, 85, 95]},
+        "Jane": {"age": 22, "grades": [88, 92, 89]},
+        "Alice": {"age": 21, "grades": [95, 90, 92]},
+        "Bob": {"age": 20, "grades": [80, 85, 88]},
+    }
+    return student_data
+
+# Define a function to filter students by grade
+def filter_students(student_data, threshold):
+    """
+    Filters students based on their average grade.
+
+    Args:
+        student_data (dict): A dictionary containing student data.
+        threshold (float): The minimum average grade required.
+
+    Returns:
+        list: A list of students with average grades above the threshold.
+    """
+    filtered_students = []
+    for student, data in student_data.items():
+        average_grade = sum(data["grades"]) / len(data["grades"])
+        if average_grade >= threshold:
+            filtered_students.append((student, data["age"], data["grades"]))
+    return filtered_students
+
+# Define a function to calculate the average grade for a list of students
+def calculate_average_grade(students):
+    """
+    Calculates the average grade for a list of students.
+
+    Args:
+        students (list): A list of tuples containing student data.
+
+    Returns:
+        float: The average grade of the students.
+    """
+    total_grades = 0
+    total_students = 0
+    for student in students:
+        total_grades += sum(student[2])
+        total_students += len(student[2])
+    return total_grades / total_students
+
+# Define a function to sort students by age
+def sort_students(students):
+    """
+    Sorts a list of students by their age.
+
+    Args:
+        students (list): A list of tuples containing student data.
+
+    Returns:
+        list: The sorted list of students.
+    """
+    return sorted(students, key=lambda x: x[1])
+
+# Example usage:
+student_data = get_student_data()
+print("Student Data:")
+for student, data in student_data.items():
+    print(f"{student}: {data}")
+
+filtered_students = filter_students(student_data, 90)
+print("\nFiltered Students:")
+for student in filtered_students:
+    print(f"{student[0]}: {student[1]}, {student[2]}")
+
+average_grade = calculate_average_grade(filtered_students)
+print(f"\nAverage Grade: {average_grade}")
+
+sorted_students = sort_students(filtered_students)
+print("\nSorted Students:")
+for student in sorted_students:
+    print(f"{student[0]}: {student[1]}, {student[2]}")
+
+#PART 2:'Data Explorer Tool'
+
+import module
+
+def explorer():
+    """
+    The main function for the student explorer tool.
+    """
+    print("Student Explorer")
+    print("----------------")
+
+    while True:
+        print("1. View all students")
+        print("2. Filter students by grade")
+        print("3. Calculate average grade")
+        print("4. Exit")
+
+        choice = input("Choose an option: ")
+
+        if choice == "1":
+            student_data = module.get_student_data()
+            print("\nStudent Data:")
+            for student, data in student_data.items():
+                print(f"{student}: {data['age']}, {data['grades']}")
+
+        elif choice == "2":
+            threshold = float(input("Grade Threshold: "))
+            student_data = module.get_student_data()
+            filtered_students = module.filter_students(student_data, threshold)
+            print("\nFiltered Students:")
+            for student in filtered_students:
+                print(f"{student[0]}: {student[1]}, {student[2]}")
+
+        elif choice == "3":
+            student_data = module.get_student_data()
+            average_grade = module.calculate_average_grade(list(student_data.values()))
+            print(f"\nAverage Grade: {average_grade}")
+
+        elif choice == "4":
+            print("Exiting...")
+            break
+
+        else:
+            print("Invalid choice. Please choose again.")
+
+if __name__ == "__main__":
+    explorer()
